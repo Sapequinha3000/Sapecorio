@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Bhaskara - Saulo</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+  <div class="bg-gray-800 p-6 rounded-2xl shadow-xl w-96">
+    <h1 class="text-2xl text-cyan-400 font-bold text-center mb-6">Calculadora de Bhaskara</h1>
+
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm mb-1">Valor de A</label>
+        <input id="a" type="number" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Ex: 1">
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Valor de B</label>
+        <input id="b" type="number" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Ex: -3">
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Valor de C</label>
+        <input id="c" type="number" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Ex: 2">
+      </div>
+      <button onclick="calcularBhaskara()" class="w-full bg-cyan-600 hover:bg-cyan-500 py-2 rounded-lg font-semibold">
+        Calcular
+      </button>
+    </div>
+
+    <div id="resultado" class="mt-6 text-center text-lg font-semibold"></div>
+  </div>
+
+  <script>
+    function calcularBhaskara() {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const c = parseFloat(document.getElementById('c').value);
+      const resultado = document.getElementById('resultado');
+
+      if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
+        resultado.textContent = "Preencha todos os valores corretamente (A ≠ 0)";
+        resultado.className = "mt-6 text-center text-red-500 font-semibold";
+        return;
+      }
+
+      const delta = b * b - 4 * a * c;
+
+      if (delta < 0) {
+        resultado.textContent = "Não existem raízes reais (Δ < 0)";
+        resultado.className = "mt-6 text-center text-yellow-400 font-semibold";
+        return;
+      }
+
+      const x1 = (-b + Math.sqrt(delta)) / (2 * a);
+      const x2 = (-b - Math.sqrt(delta)) / (2 * a);
+
+      resultado.className = "mt-6 text-center text-green-400 font-semibold";
+      resultado.innerHTML = `
+        Δ = ${delta.toFixed(2)}<br>
+        x₁ = ${x1.toFixed(2)}<br>
+        x₂ = ${x2.toFixed(2)}
+      `;
+    }
+  </script>
+</body>
+</html>
